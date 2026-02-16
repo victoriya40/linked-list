@@ -1,0 +1,90 @@
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class SinglyLL {
+
+    Node head = null;
+
+    // insert at end
+    void insertEnd(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = newNode;
+    }
+
+    // insert in middle using slow-fast pointer
+    void insertMiddle(int data) {
+
+        if (head == null) {
+            System.out.println("list is empty");
+            return;
+        }
+
+        Node newNode = new Node(data);
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        newNode.next = slow.next;
+        slow.next = newNode;
+    }
+
+    // display list
+    void display() {
+
+        if (head == null) {
+            System.out.println("list is empty");
+            return;
+        }
+
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        SinglyLL list = new SinglyLL();
+
+        int n = sc.nextInt();  // number of nodes
+
+        for (int i = 0; i < n; i++) {
+            list.insertEnd(sc.nextInt());
+        }
+
+        int x = sc.nextInt();  // value to insert in middle
+
+        list.insertMiddle(x);
+
+        list.display();
+    }
+}
