@@ -1,39 +1,74 @@
 import java.util.*;
-class Node{
+class Node {
     int data;
-    Node next=null;
-    Node(int data){
-        this.data=data;
-        this.next=null;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
     }
 }
-public class Main{
-    public static void main(String[]args){
-        Scanner sc=new Scanner(System.in);
-        int n=sc.nextInt();
-        Node head=null;
-        Node temp=null;
-        for(int i=0;i<n;i++){
-            int value=sc.nextInt();
-            Node newNode=new Node(value);
-                if(head==null){
-                    head=newNode;
-                    temp=head;
-                }else{
-                    temp.next=newNode;
-                    temp=newNode;
-                }
+
+class SinglyLinkedList {
+    Node head;
+
+    void insert(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
         }
-        int pos=sc.nextInt();
-            temp=head;
-            for(int i=1;i<pos-1;i++){
-                temp=temp.next;
-            }
-            temp.next=temp.next.next;
-            temp=head;
-            while(temp!=null){
-                System.out.print(temp.data+" ");
-                temp=temp.next;
-            }
+
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = newNode;
+    }
+    void deleteMiddle(){
+        if(head==null){
+        System.out.print("list is empty");
+        return;
+    }
+    if(head.next==null){
+        head=null;
+        return;
+    }
+    Node slow=head;
+    Node fast=head;
+    Node prev=null;
+    while(fast!=null&&fast.next!=null){
+        prev=slow;
+        slow=slow.next;
+        fast=fast.next.next;
+    }
+    prev.next=slow.next;
+    }
+    void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
         }
     }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            list.insert(sc.nextInt());
+        }
+
+        list.deleteMiddle();
+
+        list.display();
+    }
+}
