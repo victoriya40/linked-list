@@ -1,0 +1,46 @@
+import java.util.Scanner;
+class Node{
+    int data;
+    Node next;
+    Node(int data){
+        this.data=data;
+        this.next=null;
+    }
+}
+class SinglyLinkedList{
+    Node head;
+    void InsertBeg(int data){
+        Node newNode=new Node(data);
+        newNode.next=head;
+        head=newNode;
+    }
+    void InsertMid(){
+        Node slow=head;
+        Node fast=head;
+        while(fast!=null&&fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        System.out.print("Middle element: "+slow.data);
+    }
+    void display(){
+    Node temp=head;
+    while(temp!=head){
+        System.out.print(temp.data+" ");
+        temp=temp.next;
+    }
+    }
+}
+public class Main{
+    public static void main(String[]args){
+        Scanner sc=new Scanner(System.in);
+        SinglyLinkedList list=new SinglyLinkedList();
+        int n=sc.nextInt();
+        for(int i=0;i<n;i++){
+            int val=sc.nextInt();
+            list.InsertBeg(val);
+        }
+        list.display();
+        list.InsertMid();
+    }
+}
